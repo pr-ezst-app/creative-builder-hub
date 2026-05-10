@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import Icon from "@/components/ui/icon";
+import Studio from "@/pages/Studio";
 
 const PLAYERS_ONLINE = [
   { id: 1, name: "ShadowKill3r", rank: "Diamond", kd: 3.2, status: "in-game", avatar: "S", wins: 847 },
@@ -124,6 +125,9 @@ function StatCard({ label, value, sub, color = "cyan" }: { label: string; value:
 export default function Index() {
   const [activeTab, setActiveTab] = useState<"overview" | "players" | "matches">("overview");
   const [playersOnline] = useState(1847 + Math.floor(Math.random() * 100));
+  const [showStudio, setShowStudio] = useState(false);
+
+  if (showStudio) return <Studio onBack={() => setShowStudio(false)} />;
 
   return (
     <div className="min-h-screen" style={{ background: "var(--dark-bg)" }}>
@@ -158,6 +162,13 @@ export default function Index() {
               <div className="w-1.5 h-1.5 rounded-full bg-green-400 animate-blink" />
               <span className="font-mono-gaming text-xs text-green-400">{playersOnline.toLocaleString()} ONLINE</span>
             </div>
+            <button
+              onClick={() => setShowStudio(true)}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded bg-gradient-to-r from-fuchsia-600/20 to-cyan-600/20 border border-fuchsia-500/50 hover:border-fuchsia-400 hover:from-fuchsia-600/30 hover:to-cyan-600/30 transition-all group"
+            >
+              <Icon name="Sparkles" size={12} className="text-fuchsia-400 group-hover:text-fuchsia-300" />
+              <span className="font-orbitron text-xs font-bold text-fuchsia-300 group-hover:text-white uppercase tracking-widest">Studio</span>
+            </button>
             <LiveTicker />
             <div className="flex items-center gap-2 pl-4 border-l border-gray-800">
               <div className="w-7 h-7 rounded bg-fuchsia-500/20 border border-fuchsia-500/40 flex items-center justify-center">
